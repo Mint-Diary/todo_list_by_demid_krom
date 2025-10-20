@@ -24,9 +24,9 @@ function init() {
   const positions = new Float32Array(count * 3)
   const colors = new Float32Array(count * 3)
 
-  const colorA = new THREE.Color('#60a5fa') // blue-400
-  const colorB = new THREE.Color('#a78bfa') // violet-400
-  const colorC = new THREE.Color('#34d399') // emerald-400
+  const colorA = new THREE.Color('#183857') // brand primary
+  const colorB = new THREE.Color('#2a5a80') // brand secondary (lighter)
+  const colorC = new THREE.Color('#8fb3d9') // brand accent (soft)
 
   for (let i = 0; i < count; i++) {
     const i3 = i * 3

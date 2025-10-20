@@ -1,56 +1,67 @@
-# 📝 Probearbeitsaufgabe: Dynamische To-Do-Liste mit Vue 3
+# ✅ To‑Do Liste (Vue 3)
 
-## 🎯 Ziel
+Ein schnelles, zugängliches und lokal persistentes To‑Do Tool mit Vue 3 (Composition API), Tailkit/Tailwind und einem dezenten Three.js‑Partikelhintergrund. Enthält Filter, Drag & Drop, sanfte Animationen und eine dezente CSS‑Löschanimation.
 
-Entwickeln Sie eine **einfache To-Do-Anwendung** mit **Vue 3**.  
-Die Anwendung soll grundlegende Funktionen zum **Verwalten von Aufgaben** bieten.
+## Features
+- Aufgaben hinzufügen, abhaken, löschen
+- Lokale Persistenz via `localStorage`
+- Filter: Alle | Offen | Erledigt
+- Drag & Drop zum Neuordnen
+- Sanfte TransitionGroup‑Animationen; dezente CSS‑Löschanimation beim Entfernen
+- Barrierearm: Tastaturbedienung, Fokus‑Styles, Reduced‑Motion‑Support
+- Dezenter Three.js‑Hintergrund im Marken‑Theme (#183857)
 
----
+## Tech‑Stack
+- Vue 3 + Composition API
+- Tailwind CSS (Tailkit) für UI
+- Three.js für den Hintergrund
+- Vite als Dev‑Server und Bundler
 
-## 🧩 Aufgabenstellung
+## Schnellstart
+Voraussetzung: Node 18+
 
-Erstellen Sie eine **To-Do-Liste** mit folgenden Funktionen:
+```bash
+npm install
+npm run dev
+```
 
-1. **Aufgaben hinzufügen**  
-   Der Benutzer kann eine neue Aufgabe über ein Eingabefeld eingeben und hinzufügen.
+Lokal unter: http://localhost:5173
 
-2. **Aufgaben abhaken**  
-   Der Benutzer kann Aufgaben als erledigt markieren.
+## Live Demo
+Live: https://todo-gules-omega.vercel.app/
 
-3. **Aufgaben löschen**  
-   Der Benutzer kann eine Aufgabe aus der Liste entfernen.
+## Build & Preview
+```bash
+npm run build
+npm run preview
+```
 
-4. **Daten persistent speichern**  
-   Die Aufgabenliste soll auch nach einem Seiten-Reload bestehen bleiben  
-   (z. B. Speicherung im `localStorage`).
+Das Produktionsbundle liegt in `dist/`.
 
----
+## Projektstruktur
+- `src/components/TodoApp.vue` – UI, Filter, Drag & Drop, Animationen
+- `src/components/ThreeBackground.vue` – Partikelhintergrund
+- `src/composables/useTodos.js` – State, Aktionen, Persistenz
+- `src/assets/tailkit.css` – Tailwind/Tailkit Setup
+- `index.html` – Titel, Favicons, Theme‑Color
 
-## ⚙️ Zusätzliche Anforderungen
+## Bedienung
+- Neue Aufgabe über das Eingabefeld hinzufügen (Enter oder Button)
+- Checkbox hakt Aufgabe ab
+- Drag & Drop zum Umordnen
+- „Erledigte löschen“ entfernt alle erledigten Aufgaben
 
-- Nutzen Sie **Vue 3** mit der **Composition API**.
-- Die Oberfläche sollte **nutzerfreundlich** und **übersichtlich** sein.
-- Der Code sollte **gut strukturiert** und **verständlich** sein.
-- Falls Sie schneller fertig werden, können Sie zusätzliche Features umsetzen, z. B.:
-    - Filterfunktion
-    - Drag & Drop
-    - Animationen
+## Design & Branding
+- Primärfarbe: `#183857` (+ harmonische Abstufungen)
+- Schwarze Ränder für klare Abgrenzung
+- GitHub‑Badge unten rechts: Link zum Repo
 
----
+## Barrierefreiheit
+- Fokus‑Ringe und ausreichender Kontrast
+- Unterstützt `prefers-reduced-motion`
 
-## 📦 Abgabe
+## Lizenz
+MIT (sofern nicht anders deklariert). Siehe Repository.
 
-Nach Beendigung der Aufgabe laden Sie bitte den Code auf **GitHub** hoch  
-und teilen Sie den Link mit uns.
-
----
-
-## ⏱ Arbeitszeit
-
-Sie haben insgesamt **ca. 3 Stunden** Zeit für die Umsetzung.  
-Falls Sie nicht fertig werden, ist das **nicht schlimm** –  
-uns interessiert vor allem **Ihre Herangehensweise und Ihr Code**.
-
----
-
-## 💪 Viel Erfolg!
+## Danksagung
+- Tailkit, Vue, Vite, Three.js

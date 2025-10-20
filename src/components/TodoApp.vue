@@ -48,20 +48,20 @@ function onDrop(targetId) {
         <p class="text-gray-600 dark:text-gray-300">Verwalten Sie Ihre Aufgaben einfach und schnell.</p>
 
         <!-- Filters -->
-        <nav class="mt-4 inline-flex overflow-hidden rounded-lg border-2 border-gray-200 bg-white text-sm dark:border-gray-700 dark:bg-gray-800" aria-label="Filter">
+        <nav class="mt-4 inline-flex overflow-hidden rounded-lg border-2 border-black bg-white/95 text-sm dark:border-black dark:bg-gray-900/80" aria-label="Filter">
           <button
-            class="px-3 py-1.5 font-medium transition focus:outline-hidden focus:ring-2 focus:ring-blue-500/40"
-            :class="filter === 'all' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'"
+            class="px-3 py-1.5 font-medium transition focus:outline-hidden focus:ring-2 focus:ring-[#183857]/40"
+            :class="filter === 'all' ? 'bg-[#183857] text-white' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'"
             @click="setFilter('all')"
           >Alle</button>
           <button
-            class="px-3 py-1.5 font-medium transition focus:outline-hidden focus:ring-2 focus:ring-blue-500/40"
-            :class="filter === 'active' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'"
+            class="px-3 py-1.5 font-medium transition focus:outline-hidden focus:ring-2 focus:ring-[#183857]/40"
+            :class="filter === 'active' ? 'bg-[#183857] text-white' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'"
             @click="setFilter('active')"
           >Offen</button>
           <button
-            class="px-3 py-1.5 font-medium transition focus:outline-hidden focus:ring-2 focus:ring-blue-500/40"
-            :class="filter === 'completed' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'"
+            class="px-3 py-1.5 font-medium transition focus:outline-hidden focus:ring-2 focus:ring-[#183857]/40"
+            :class="filter === 'completed' ? 'bg-[#183857] text-white' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'"
             @click="setFilter('completed')"
           >Erledigt</button>
         </nav>
@@ -73,12 +73,12 @@ function onDrop(targetId) {
           v-model="newTodo"
           type="text"
           placeholder="Neue Aufgabe hinzufügen..."
-          class="flex-1 rounded-lg border-2 border-gray-300 bg-white px-4 py-3 text-base shadow-xs outline-none placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 dark:border-gray-700 dark:bg-gray-800"
+          class="flex-1 rounded-lg border-2 border-black bg-white/95 px-4 py-3 text-base shadow-xs outline-none placeholder:text-gray-500 focus:border-[#183857] focus:ring-2 focus:ring-[#183857]/30 dark:border-black dark:bg-gray-900/80"
           autocomplete="off"
         />
         <button
           type="submit"
-          class="inline-flex items-center gap-2 rounded-lg border-2 border-blue-700 bg-blue-700 px-4 py-3 font-semibold text-white transition hover:border-blue-800 hover:bg-blue-800 focus:ring-2 focus:ring-blue-500/50 focus:outline-hidden disabled:opacity-50"
+          class="inline-flex items-center gap-2 rounded-lg border-2 border-black bg-[#183857] px-4 py-3 font-semibold text-white transition hover:bg-[#142c44] hover:border-black focus:ring-2 focus:ring-[#183857]/50 focus:outline-hidden disabled:opacity-50"
           :disabled="!newTodo.trim()"
         >
           Hinzufügen
@@ -86,8 +86,8 @@ function onDrop(targetId) {
       </form>
 
       <!-- List -->
-      <section v-if="hasTodos" class="rounded-xl border-2 border-gray-200 bg-white shadow-xs dark:border-gray-800 dark:bg-gray-800">
-        <TransitionGroup name="list" tag="ul" class="divide-y-2 divide-gray-200 dark:divide-gray-700">
+      <section v-if="hasTodos" class="rounded-xl border-2 border-black bg-white/95 shadow-xs dark:border-black dark:bg-gray-900/80">
+        <TransitionGroup name="list" tag="ul" class="divide-y-2 divide-black dark:divide-black">
           <li
             v-for="todo in filteredTodos"
             :key="todo.id"
@@ -103,7 +103,7 @@ function onDrop(targetId) {
               type="checkbox"
               :checked="todo.completed"
               @change="toggleTodo(todo.id)"
-              class="h-5 w-5 rounded border-2 border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600"
+              class="h-5 w-5 rounded border-2 border-black text-[#183857] focus:ring-[#183857] dark:border-black"
             />
             <label
               :for="`todo-${todo.id}`"
@@ -122,6 +122,8 @@ function onDrop(targetId) {
             </button>
           </li>
         </TransitionGroup>
+        <!-- Persistent divider under the last item to separate from footer -->
+        <div class="border-t-2 border-black"></div>
         <footer class="flex flex-wrap items-center justify-between gap-2 px-4 py-2 text-sm text-gray-600 dark:text-gray-300">
           <span>{{ remaining }} offen</span>
           <button
@@ -142,12 +144,11 @@ function onDrop(targetId) {
 
 <style scoped>
 /***** TransitionGroup animations *****/
-.list-enter-active,
-.list-leave-active {
+/* Enter + move remain subtle */
+.list-enter-active {
   transition: all 200ms ease;
 }
-.list-enter-from,
-.list-leave-to {
+.list-enter-from {
   opacity: 0;
   transform: translateY(-4px) scale(0.98);
 }
@@ -155,12 +156,32 @@ function onDrop(targetId) {
   transition: transform 200ms ease;
 }
 
+/* Reliable CSS-only remove effect (fade + slight slide, scale and blur) */
+.list-leave-active {
+  transition: opacity 260ms ease, transform 260ms ease, filter 260ms ease;
+}
+.list-leave-from {
+  opacity: 1;
+  transform: translateX(0) translateY(0) scale(1) rotate(0deg);
+  filter: none;
+}
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(16px) translateY(-4px) scale(0.96) rotate(-2deg);
+  filter: blur(2px);
+}
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .list-enter-active,
-  .list-leave-active,
-  .list-move {
+  .list-move,
+  .list-leave-active {
     transition: none !important;
+    animation: fade-out 150ms linear forwards;
   }
+}
+
+@keyframes fade-out {
+  to { opacity: 0; }
 }
 </style>
