@@ -2,12 +2,17 @@
 import { onMounted, onBeforeUnmount, ref } from 'vue'
 import * as THREE from 'three'
 
+// Lightweight, theme-colored particle background rendered with Three.js.
+// - Runs behind the app (pointer-events: none, negative z-index)
+// - Respects prefers-reduced-motion (keeps static if user prefers)
+// - Pauses on hidden tab; handles resize; cleans up on unmount
 const canvasRef = ref(null)
 let renderer, scene, camera, points, rafId
 let start = performance.now()
 
 function init() {
   const canvas = canvasRef.value
+  if (!canvas) return
   const { innerWidth: w, innerHeight: h } = window
 
   renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true })

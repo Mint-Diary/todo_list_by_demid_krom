@@ -51,11 +51,6 @@ Das Produktionsbundle liegt in `dist/`.
 - Drag & Drop zum Umordnen
 - „Erledigte löschen“ entfernt alle erledigten Aufgaben
 
-## Design & Branding
-- Primärfarbe: `#183857` (+ harmonische Abstufungen)
-- Schwarze Ränder für klare Abgrenzung
-- GitHub‑Badge unten rechts: Link zum Repo
-
 ## Barrierefreiheit
 - Fokus‑Ringe und ausreichender Kontrast
 - Unterstützt `prefers-reduced-motion`

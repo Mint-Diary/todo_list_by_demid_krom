@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useTodos } from "../composables/useTodos";
 
+// State & actions from the todos composable
 const {
   todos,
   newTodo,
@@ -17,6 +18,7 @@ const {
   moveById,
 } = useTodos();
 
+// Keep id of the item currently being dragged (by handle)
 const draggingId = ref(null);
 
 function onSubmit(e) {
@@ -47,32 +49,37 @@ function onDrop(targetId) {
         <h1 class="text-3xl font-black tracking-tight">To‑Do Liste</h1>
         <p class="text-gray-600 dark:text-gray-300">Verwalten Sie Ihre Aufgaben einfach und schnell.</p>
 
-        <!-- Filters -->
+        <!-- Filters: indicate pressed state for a11y -->
         <nav class="mt-4 inline-flex overflow-hidden rounded-lg border-2 border-black bg-white/95 text-sm dark:border-black dark:bg-gray-900/80" aria-label="Filter">
           <button
             class="px-3 py-1.5 font-medium transition focus:outline-hidden focus:ring-2 focus:ring-[#183857]/40"
             :class="filter === 'all' ? 'bg-[#183857] text-white' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'"
+            :aria-pressed="filter === 'all'"
             @click="setFilter('all')"
           >Alle</button>
           <button
             class="px-3 py-1.5 font-medium transition focus:outline-hidden focus:ring-2 focus:ring-[#183857]/40"
             :class="filter === 'active' ? 'bg-[#183857] text-white' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'"
+            :aria-pressed="filter === 'active'"
             @click="setFilter('active')"
           >Offen</button>
           <button
             class="px-3 py-1.5 font-medium transition focus:outline-hidden focus:ring-2 focus:ring-[#183857]/40"
             :class="filter === 'completed' ? 'bg-[#183857] text-white' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'"
+            :aria-pressed="filter === 'completed'"
             @click="setFilter('completed')"
           >Erledigt</button>
         </nav>
       </header>
 
-      <!-- Input -->
+      <!-- Input: add aria-label and a reasonable maxlength -->
       <form @submit="onSubmit" class="mb-6 flex gap-2">
         <input
           v-model="newTodo"
           type="text"
           placeholder="Neue Aufgabe hinzufügen..."
+          aria-label="Neue Aufgabe"
+          maxlength="200"
           class="flex-1 rounded-lg border-2 border-black bg-white/95 px-4 py-3 text-base shadow-xs outline-none placeholder:text-gray-500 focus:border-[#183857] focus:ring-2 focus:ring-[#183857]/30 dark:border-black dark:bg-gray-900/80"
           autocomplete="off"
         />
@@ -92,9 +99,6 @@ function onDrop(targetId) {
             v-for="todo in filteredTodos"
             :key="todo.id"
             class="flex items-center gap-3 px-4 py-3 select-none"
-            :draggable="true"
-            @dragstart="onDragStart(todo.id)"
-            @dragend="onDragEnd"
             @dragover.prevent
             @drop="onDrop(todo.id)"
           >
@@ -111,7 +115,18 @@ function onDrop(targetId) {
             >
               <span :class="[todo.completed ? 'line-through text-gray-400 dark:text-gray-500' : '']">{{ todo.text }}</span>
             </label>
-            <span class="cursor-grab text-gray-400" title="Ziehen, um neu anzuordnen" aria-hidden="true">≡</span>
+            <!-- Drag handle only is draggable to prevent accidental drags when clicking -->
+            <span
+              class="cursor-grab text-gray-400"
+              title="Ziehen, um neu anzuordnen"
+              role="button"
+              tabindex="0"
+              aria-label="Zum Neuanordnen ziehen"
+              :draggable="true"
+              @dragstart="onDragStart(todo.id)"
+              @dragend="onDragEnd"
+              aria-hidden="false"
+            >≡</span>
             <button
               @click="removeTodo(todo.id)"
               class="rounded-md px-2 py-1 text-sm font-medium text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/30"
